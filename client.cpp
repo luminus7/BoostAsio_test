@@ -51,7 +51,6 @@ int fnChooseOption(){
     	cout << "Please enter correct option.\n\n" << endl;
 	return OPTERR;
     }
-
 }
 
 int main(){
@@ -69,59 +68,59 @@ int main(){
     try {
         boost::asio::io_service io_service;
 	
-	// using resolver to convert domain name to TCP endpoint
-	tcp::resolver resolver(io_service);
+	    // using resolver to convert domain name to TCP endpoint
+	    tcp::resolver resolver(io_service);
         
-	// dest server> localhost, service> daytime protocol
+	    // dest server> localhost, service> daytime protocol
         tcp::resolver::query query("localhost", "daytime");
 	
-	//get IP addr, Port info by through DNS
-	tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
+	    //get IP addr, Port info by through DNS
+	    tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
 
-	tcp::socket socket(io_service);				// initialize socket object
-	boost::asio::connect(socket, endpoint_iterator);	// connect to server
+	    tcp::socket socket(io_service);				// initialize socket object
+	    boost::asio::connect(socket, endpoint_iterator);	// connect to server
 
-	// read message from server
-//	while(1){
-//	    boost::array<char, 128> buf;	// declare buffer
-//	    boost::system::error_code error;	// declare error managing variable
-//
-//	    // receive data from server & save the data in buffer
-//	    size_t len_rd = socket.read_some(boost::asio::buffer(buf), error);
-//	    if (error == boost::asio::error::eof){
-//	        break;
-//	    } else if(error) {
-//	        throw boost::system::system_error(error);
-//	    }
-//	    cout.write(buf.data(), len_rd);	// print buffer data
-//	}
+	    // read message from server
+    //	while(1){
+    //	    boost::array<char, 128> buf;	// declare buffer
+    //	    boost::system::error_code error;	// declare error managing variable
+    //
+    //	    // receive data from server & save the data in buffer
+    //	    size_t len_rd = socket.read_some(boost::asio::buffer(buf), error);
+    //	    if (error == boost::asio::error::eof){
+    //	        break;
+    //	    } else if(error) {
+    //	        throw boost::system::system_error(error);
+    //	    }
+    //	    cout.write(buf.data(), len_rd);	// print buffer data
+    //	}
 
-	// write message to server & read message from server
-	while(1){
-	    boost::array<char, 128> buf_wr;	// declare write buffer
-	    boost::array<char, 128> buf_rd;	// declare read buffer
+        // write message to server & read message from server
+        while(1){
+            boost::array<char, 128> buf_wr;	// declare write buffer
+            boost::array<char, 128> buf_rd;	// declare read buffer
 
-	    boost::system::error_code error;	// declare error managing variable
+            boost::system::error_code error;	// declare error managing variable
 
-	    buf_wr[0] = (char)(is_valid_opt + 48);	// convert int -> char & store to buffer
-	    buf_wr[1] = '\0';
+            buf_wr[0] = (char)(is_valid_opt + 48);	// convert int -> char & store to buffer
+            buf_wr[1] = '\0';
 
-	    // send data to server
-	    boost::asio::write(socket, boost::asio::buffer(buf_wr), error);
-	    cout << "message sent to server >>>" << endl;
+            // send data to server
+            boost::asio::write(socket, boost::asio::buffer(buf_wr), error);
+            cout << "message sent to server >>>" << endl;
 
-	    // receive data from server & save the data in buffer
-	    size_t len_rd= socket.read_some(boost::asio::buffer(buf_rd), error);
-	    if (error == boost::asio::error::eof){
-	        break;
-	    } else if(error) {
-	        throw boost::system::system_error(error);
-	    }
+            // receive data from server & save the data in buffer
+            size_t len_rd= socket.read_some(boost::asio::buffer(buf_rd), error);
+            if (error == boost::asio::error::eof){
+                break;
+            } else if(error) {
+                throw boost::system::system_error(error);
+            }
 
-	    cout << "message received from server <<<" << endl;
-	    cout << "received msg: ";
-	    cout.write(buf_rd.data(), len_rd);	// print buffer data
-	}
+            cout << "message received from server <<<" << endl;
+            cout << "received msg: ";
+            cout.write(buf_rd.data(), len_rd);	// print buffer data
+        }
     } catch(exception & e) {
         cerr << e.what() << endl;
     }

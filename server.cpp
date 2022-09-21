@@ -82,7 +82,7 @@ int main(){
 	    cout << "received msg: " << message_recv << endl;
 
 	    string message_snd = make_daytime_string();	// create msg to be sent
-	    boost::asio::write(socket, boost::asio::buffer(message_snd), error);	// send msg to the client
+	    boost::asio::async_write(socket, boost::asio::buffer(message_snd), error); // send msg to the client
 	    cout << "message sent to client >>>" << endl;
 	}
     } catch(exception & e) {
