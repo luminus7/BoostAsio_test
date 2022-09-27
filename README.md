@@ -1,4 +1,4 @@
-# 2022 Research - cpp Boost.Asio library test #
+# 2022 Research project - cpp Boost.Asio library test #
 
 
 ## How to download project ##
@@ -32,17 +32,21 @@ $ cd BoostAsio_test
  ```
 
 5. compile source codes
+we need g++ compiler includes c++11 or more.
 ```bash
- $ g++ -o server.run server.cpp -lpthread
- $ g++ -o client.run client.cpp -lpthread
+ $ g++ -o server.run server_oop.cpp -lpthread
+ $ g++ -o client.run client_oop.cpp -lpthread
  ```
 
 6. run executable files in local host
-you can modify your code as you wish.
+you can modify the code as you wish.
 ```bash
- $ sudo ./server.run
- $ sudo ./client.run
+ $ sudo ./server.run <PORT>
+ $ sudo ./client.run <DEST_IP:DEST_PORT> <FILE_PATH>
  ```
+
+ 7. information about server_oop.cpp & client_oop.cpp
+[2022.09.27] Current implementation can transfer the file from client -(to)-> server in asynchronous way.
 
 ## Installation guide reference ##
 [Korean guide - blog](https://int-i.github.io/cpp/2020-09-19/ubuntu-boost/)
