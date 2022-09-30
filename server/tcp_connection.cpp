@@ -52,7 +52,7 @@ void tcpConnection::handleReadRequest(const boost::system::error_code& err, std:
 		<< "B, max_size = " << requestBuf.max_size()
 		<< ".\n";
 
-	std::cout << (const char *) requestBuf.data().data() << std::endl;
+	//std::cout << (const char *) requestBuf.data().data() << std::endl;
 
 
 	// 파일에 대한 정보를 담을 변수
@@ -80,7 +80,7 @@ void tcpConnection::handleReadRequest(const boost::system::error_code& err, std:
 
 	// store the file into 'received_file' directory
 	std::string find_str = "transfer_file";
-	filePath.replace(filePath.find("transfer_file"), find_str.length(), "received_file");
+	filePath = filePath.replace(filePath.find(find_str), find_str.length(), "received_file");
 
 	// 이제 내 컴퓨터에 출력할 파일을 열음
 	// opening the file (include creating the file)
