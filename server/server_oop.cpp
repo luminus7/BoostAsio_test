@@ -16,7 +16,7 @@
 unsigned short port = 13;
 
 
-tcpServer::tcpServer(unsigned short port, boost::asio::io_service &ioservice)
+tcpServer::tcpServer(unsigned short port)
 	: /* public inheritance */ acceptor(ioService, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port), true)
 {
     // 서버 실행
