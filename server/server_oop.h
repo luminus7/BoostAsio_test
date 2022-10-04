@@ -1,6 +1,12 @@
-﻿#pragma once
-#define _WINSOCK_DEPRECATED_NO_WARNINGS
-//#define BOOST_USE_WINDOWS_H
+﻿#ifndef SERVER_H
+#define SERVER_H
+
+#ifdef __linux__ 
+    //linux code goes here
+#elif _WIN32
+    // windows code goes here
+    #define _WINSOCK_DEPRECATED_NO_WARNINGS
+#endif
 
 #include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
@@ -24,7 +30,7 @@ public:
 
     // 서버 생성자
     // tcpServer class constructor
-    tcpServer(unsigned short port, boost::asio::io_service& ioservice);
+    tcpServer(unsigned short port);
 
     void handleAccept(ptrTcpConnection &currentConnection, const boost::system::error_code& e);
 
@@ -33,3 +39,4 @@ public:
 };
 /* end of tcpServer class */
 
+#endif /* SERVER_H */

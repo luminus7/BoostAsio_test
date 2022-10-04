@@ -1,17 +1,23 @@
-﻿#pragma once
+﻿#ifndef TCP_CONNECTION_H
+#define TCP_CONNECTION_H
+
+#ifdef __linux__
+    //linux code goes here
+#elif _WIN32
+    // windows code goes here
+    #define _WIN32_WINNT 0x0501
+    #define WIN32_LEAN_AND_MEAN
+#endif
 
 #include <fstream>
 
 #include <iostream>
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
 
-#define _WIN32_WINNT 0x0501
-
-#define WIN32_LEAN_AND_MEAN
 
 // 실질적인 통신을 담당하는 tcpConnection 클래스 정의
 /**
@@ -53,3 +59,5 @@ public:
     boost::asio::ip::tcp::socket& socket();
 };
 /* end of tcpConnection class */
+
+#endif /* TCP_CONNECTION_H */
